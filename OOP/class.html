@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.创建类
+        class Person{
+            constructor (name,age) {
+                this.name = name
+                this.age = age
+            }
+            say(saysomething){
+                console.log('大家好，我是'+this.name+','+saysomething)
+            }
+        }
+        // 2.实例化对象
+       var person1 =  new Person('Lee',25);
+       person1.say()
+       var susan =  new Person('muzi',8);
+        susan.say('很高兴见到大家')
+       console.log(person1);
+
+    class Test{
+        constructor(name){
+            this.name = name
+        }
+        say(saysomething){
+            console.log('hello，我是'+this.name +','+ saysomething)
+        }
+    }
+    var test1 = new Test('muzi')
+    console.log(test1.name)
+    var test2 = new Test('Lee')
+    test2.say('我在测试')
+    console.log(test2.name)
+
+       // 注意：
+       // 1、通过 class 关键字创建类，类名我们还是习惯性定义 首字母 大写
+       // 2、类里面有一个 constructor 函数，可以接受传递过来的参数，并返回实例对象
+       // 3、只要 new 生成实例时，就会自动调用 constructor 函数，如果我们不去定义 constructor 函数，实例对象也会默认生成该函数
+       // 4、 生成实例时 new 不能省略
+       // 5、最后注意语法规范，创建类的时候，类名后面不要加小括号；生成类的实例时，类名后面要加小括号；构造函数 不需要加 function,其实在类里面 所有的函数都不需要加 function
+       // 6、多个 方法之间不需要用 逗号(,) 隔开
+       
+    </script>
+</body>
+</html>

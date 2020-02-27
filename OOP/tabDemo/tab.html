@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style >
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        body{
+            margin: 16px;
+            border: 1px solid pink;
+        }
+        .flex-wrap{
+            display: flex;
+            align-items: center;
+        }
+        .tab-header{
+            position: relative;
+            height: 28px;
+            border-bottom: 1px solid pink;
+        }
+        li{
+            width: 80px;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+            border: 1px solid pink;
+            border-width: 1px 1px 1px 0;
+            background: #fff;
+            position: relative;
+        }
+        li input{
+            height: 29px;
+        }
+        li .icon{
+            position: absolute;
+            right: 0;
+        }
+        li.active{
+            border-bottom-color: #fff;
+            height: 29px;
+            background: #fff;
+            line-height: 29px;
+        }
+        .tab-header-right{
+            position: absolute;
+            right: 12px;
+            width: 20px;
+            border: 1px solid;
+            text-align: center;
+        }
+        .tab-content{
+            height: 400px;
+        }
+        section{
+            display: none;
+        }
+        .content-active{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="tabbox">
+        <nav class="tab-header flex-wrap">
+            <ul class="tab-header-left flex-wrap" >
+                <li class="active">
+                    <span>tab1</span>
+                    <label class="del-icon">X</label>
+                </li>
+                <li>
+                    <span>tab2</span>
+                    <label class="del-icon">X</label>
+                </li>
+                
+            </ul>
+            <div class="tab-header-right">
+                <label class="add-icon">+</label>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <section class="content-active">tab1</section>
+            <section>tab2</section>
+        </div>
+    </div>
+    <script src="./tab.js"></script>
+    
+</body>
+</html>
