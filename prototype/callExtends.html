@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>借用构造函数继承属性</title>
+</head>
+<body>
+    <script>
+        // 1、父构造函数
+        function Father(name,age){
+            this.name = name;
+            this.age = age;
+            
+        }
+        // 2、子构造函数
+        function Son(name,age,score){
+            Father.call(this,name,age)
+            this.score = score
+        }
+
+        var son = new Son('Tom',8,100)
+        console.log(son)
+    </script>
+</body>
+</html>

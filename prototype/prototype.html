@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型对象</title>
+</head>
+<body>
+    <script>
+        function Student(name){
+            this.name = name;
+            // this.say = function (){
+            //     console.log('我叫'+this.name+',是名学生')
+            // }
+        }
+        Student.prototype.say = function(){
+            console.log('我叫'+this.name+',是名学生')
+        }
+        var stu = new Student('木子')
+        var stu2 = new Student('学生2')
+        stu.say()
+        console.log(stu.say === stu2.say)
+        // 一般情况下，公共的属性定义到构造函数里面，公共到方法分放到原型对象里面
+    </script>
+</body>
+</html>

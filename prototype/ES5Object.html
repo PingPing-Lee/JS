@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES5新增 对象方法</title>
+</head>
+<body>
+    <script>
+        // Object.keys(obj) 用于获取对象自身的所有属性
+        var obj = {
+            id: 1,
+            name: 'Object.keys()',
+            desc: '用于获取对象自身的所有属性'
+        }
+        console.log(Object.keys(obj))
+       
+        // 1.  以前修改或者新增对象属性 的方式
+        obj.new = '新增属性';
+        obj.name = '以前修改或者新增对象属性 的方式'
+        console.log(obj)
+        // 2. Object.defineProperty()  定义对象中新属性或者修改原有属性
+        Object.defineProperty(obj,'name',{
+            value: 'Object.defineProperty()'
+        })
+        Object.defineProperty(obj,'add',{
+            value: 'Object.defineProperty() 没有该属性，新增该属性',
+            enumerable: true
+        })
+        Object.defineProperty(obj,'id',{
+            // 不允许修改
+            writable: false
+        })
+        Object.defineProperty(obj,'age',{
+            value: '18',
+            writable: false,
+            // enumerable 值为 false，不允许被遍历，默认是 false
+            enumerable: false,
+            // configurable 值为 false，不允许被删除，默认是 false
+            configurable: true
+        })
+        obj.id = 2 // 因为不允许修改，修改无效
+        console.log(obj,Object.keys(obj))
+        delete obj.age;
+        console.log(obj)
+    </script>
+</body>
+</html>

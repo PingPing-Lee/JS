@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建对象的三种方式</title>
+</head>
+<body>
+    <script>
+        // 1、利用对象字面量创建对象
+        var obj = {};
+        // 2、利用 new Object() 创建对象
+        var obj2 = new Object();
+        // 3、利用构造函数创建对象
+        function Student(name){
+            this.name = name;
+            this.say = function (){
+                console.log('我叫'+this.name+',是名学生')
+            }
+        }
+        var stu = new Student('木子～')
+        stu.say()
+        console.log(stu)
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>借用构造函数继承属性</title>
+</head>
+<body>
+    <script>
+        // 1、父构造函数
+        function Father(name,age){
+            this.name = name;
+            this.age = age;
+            
+        }
+        // 父构造函数 原型对象的 继承 方法
+        Father.prototype.say = function(){
+            console.log('say something');
+            
+        }
+        // 2、子构造函数
+        function Son(name,age,score){
+            Father.call(this,name,age)
+            this.score = score
+            // this.say = function(){
+            //    console.log('say something');
+                
+            // }
+        }
+        Son.prototype = Father.prototype 
+        // 定义一个只属于 子构造函数的方法
+        Son.prototype.study = function(){
+            console.log('子构造函数需要学习')
+        }
+
+       
+        //这种方式，表面上可以实现 子构造函数继承 父构造函数的方法，
+        // 但实际上，子构造函数的指向 父构造函数的地址，当子构造函数改变时，父构造函数也会改变
+        console.log(Father.prototype) // 打印 发现 父构造函数也同时具备了 study 方法，所以此方式继承是不对的
+        
+        //正确的继承应该是 
+        Son.prototype = new Father()
+        // 如果利用了 对象的形式修改了原型对象，要记得 利用 constructor 指回原来的构造函数
+        // Son.prototype.constructor = Son;
+
+        var son = new Son('Tom',8,100)
+        console.log(son)
+    </script>
+</body>
+</html>

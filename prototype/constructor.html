@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>constructor 构造函数</title>
+</head>
+<body>
+    <script>
+        function Student(name){
+            this.name = name;
+        }
+        // Student.prototype.say = function(){
+        //     console.log('我叫'+this.name+',是名学生')
+        // }
+
+        // 很多情况下，我们需要 利用 constructor 这个属性 指回 原来的构造函数 
+        Student.prototype = {
+            // 如果我们修改了原来的原型对象，并且给原型对象 赋值 一个对象，则必须手动的利用 constructor  指回 原来的构造函数 
+            constructor: Student,
+            say: function(){
+                console.log('我叫'+this.name+',是名学生')
+            },
+            study: function(){
+                console.log('正在学习 constructor 构造函数')
+
+            }
+        }
+        var stu = new Student('木子')
+        console.log(stu.__proto__.constructor);
+        console.log(Student.prototype.constructor); 
+        
+    </script>
+</body>
+</html>

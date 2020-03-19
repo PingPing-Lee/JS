@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静态成员和实例成员</title>
+</head>
+<body>
+    <script>
+        // 构造函数中的属性和方法我们称之为 成员，成员是可以添加的
+        function Student(name){
+            this.name = name;
+            this.say = function (){
+                console.log('我叫'+this.name+',是名学生')
+            }
+        }
+        var stu = new Student('木子～')
+        // 1、实例成员 就是构造函数内部通过 this 添加的成员，name say 都是实例成员
+        //  实例成员 只能 通过实例化的对象来访问
+        stu.say()
+        console.log(stu.name)
+        console.log(Student.say) // 不能 通过构造函数直接访问实例成员
+
+        // 2、静态成员 在构造函数本身直接添加的成员，如下 age 就是静态成员
+        Student.age = '18'
+        console.log(stu.age) // 不能通过 实例对象来 访问静态成员
+    </script>
+</body>
+</html>

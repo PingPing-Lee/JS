@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>call方法</title>
+</head>
+<body>
+    <script>
+        // call 方法
+        function test(a,b){
+            console.log('测试 call 方法')
+            console.log(this)
+            console.log(a+b)
+        }
+        // test()
+
+        // 1. call() 可以调用函数
+        test.call()
+
+        // 2. call() 可以改变这个函数的 this 指向，
+        var Obj = {
+            name: '改变 this 指向'
+        }
+        test.call(Obj)
+
+        // 3. call(this,arg1,arg2) 可以传参数
+        test.call(Obj,12,34)
+    </script>
+</body>
+</html>

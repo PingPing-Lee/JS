@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象的原型</title>
+</head>
+<body>
+    <script>
+        function Student(name){
+            this.name = name;
+        }
+        Student.prototype.say = function(){
+            console.log('我叫'+this.name+',是名学生')
+        }
+        var stu = new Student('木子')
+        console.log(stu)
+        // 对象身上 系统自动添加一个 __proto__ 属性，指向我们的构造函数的原型对象
+        console.log(stu.__proto__ === Student.prototype);
+        // 方法的查找规则： 
+        //  首先先看 实例对象 身上是否有 say 方法，如果有 就执行这个对象上的 say
+        //  如果没有 say 这个方法，因为 __proto__ 的存在，就去构造函数 原型对象 prototype 上去查找
+        
+    </script>
+</body>
+</html>
