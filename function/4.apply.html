@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>改变函数内 this 指向 apply</title>
+</head>
+<body>
+    <script>
+        // 改变函数内 this 指向，js 提供了 三种方法，call()，apply()，bind()
+        // 2. apply()
+        var obj = {
+            name: 'apply()方法'
+        };
+        function fn(a,b){
+            console.log(this)
+            console.log(a+b) // 3
+        }
+        // fn()
+        fn.apply(obj,[1,2])
+        // 总结： apply() 方法可以调用函数，也可以改变函数的 this 指向
+        // 第二个参数必须是数组、
+        // apply 的主要作用，例如 利用 apply 借助于 数学内置对象的最大值
+        // Math.max()
+        var arr = [33,22,66,7,9,1]
+        // var max = Math.max.apply(null,arr);
+        var max = Math.max.apply(Math,arr);
+        var min = Math.min.apply(Math,arr);
+        console.log(max,min)
+        
+    </script>
+</body>
+</html>

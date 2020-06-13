@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式的特殊字符</title>
+</head>
+<body>
+    <script>
+        // 边界符：又称位置符，用来提示字符串所在的位置，主要有两个字符 ^ $
+        var reg = /^abc$/;  // 以 a 开头，以 b 结尾
+        console.log(reg.test('abc'),reg.test('aabc')) // true ,fale
+
+        //字符类：[]表示有一系列的字符供选择，只要匹配其中一个就可以
+        var reg1 = /[abc]/  // 表示只要包含 a 或者 b 或者 c 其中一个就返回 true
+        console.log(reg1.test('ad'),reg1.test('fbpp'),reg1.test('dcf'),reg1.test('dfe')) // true,true,true,flse
+
+        var reg2 = /^[abc]$/  // 表示 a b c 三选一，只能有其中的一个才会返回 true
+        console.log(reg2.test('ab'),reg2.test('a'),reg2.test('b'),reg2.test('c'))
+
+        // [-] 方括号内部范围符 - 
+        var reg3 = /^[a-z]$/ // 26个英文字母任何一个返回 true
+        console.log(reg3.test('g'),reg3.test('H'),reg3.test('1'))
+
+        // 字符组合
+        var reg4 = /^[a-zA-Z0-9_-]$/  //  
+
+        // 如果 [] 里面有 ^ 表示取反
+        var reg4 = /^[^a-zA-Z0-9_-]$/  // 
+
+
+
+        // 量词符：用来设定某个模式出现的次数
+        // * ：匹配前一个表达式 0 次或多次。等价于 {0,}。
+        var reg5 = /^a*$/
+        console.log(reg5.test(''),reg5.test('aaaa'),reg5.test('a'))
+
+        // +：匹配前面一个表达式 1 次或者多次。等价于 {1,}。
+        var reg6 = /^a+$/
+        console.log(reg6.test(''),reg6.test('aaaa'),reg6.test('a'))
+
+        // ?：匹配前面一个表达式 0 次或者 1 次。等价于 {0,1}。
+        var reg7 = /^a?$/
+        console.log(reg7.test(''),reg7.test('aaaa'),reg7.test('a')) // tur,false,true
+
+        // {n}：n 是一个正整数，匹配了前面一个字符刚好出现了 n 次。
+        var reg8 = /^a{3}$/
+        console.log(reg8.test(''),reg8.test('aaaa'),reg8.test('aaa'))//false,flase,true
+
+        // {n，}：n是一个正整数，匹配前一个字符至少出现了n次。
+        var reg9 = /^a{3,}$/
+        console.log(reg9.test(''),reg9.test('aaaa'),reg9.test('aaa')) //false, true, true
+
+        // {n，m}：n 和 m 都是整数。匹配前面的字符至少n次，最多m次。如果 n 或者 m 的值是0， 这个值被忽略。
+        var reg11 = /^a{3,4}$/ // 量词花括号之间不能有空格
+        console.log(reg11.test(''),reg11.test('aaaaa'),reg11.test('aaa')) // false,false,true
+
+        // 括号总结：
+        // 大括号 {} ,量词符，表示重复次数
+        // 中括号 [],字符类，匹配中括号中的任意字符
+        // 小括号 (),表示优先级
+        var reg12 = /^abc{3}$/ // 只让 c 重复，abccc
+        console.log(reg12.test('abc'),reg12.test('abcabcabc'),reg12.test('abccc')) // false,false,true
+
+        var reg12 = /^(abc){3}$/ // 让 abc 重复三次，abcabcabc
+        console.log(reg12.test('abc'),reg12.test('abcabcabc'),reg12.test('abccc')) // false,true,false
+
+    </script>
+</body>
+</html>

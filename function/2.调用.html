@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数的调用方式</title>
+</head>
+<body>
+    <script>
+        // 
+        // 1. 普通函数  this 指向 window
+        function fun(){ 
+            console.log('普通函数的调用方式')
+            console.log('普通函数的this指向',this)
+        };
+        fun();
+        //2. 对象的方法  this 指向的是对象 obj
+        var obj = {
+            fun:function(){
+                console.log('对象的方法的调用方式')
+                console.log('普通函数的this指向',this)
+            }
+        };
+        obj.fun();
+        //3. 构造函数 this 指向的是 构造函数的实例化对象  constr，原型对象里面的 this 指向也是实例化对象
+        function Constru(){};
+        var constr = new Constru();
+        //4. 绑定事件函数  this 指向 绑定事件对象
+        // DOM.onclick = function(){console.log('绑定事件函数,点击标签就可以调用')}
+        // 5. 定时器函数 指向 window
+        setTimeout(function(){
+            console.log('一次性定时器，一秒后自动调用')
+        },1000);
+        // 6.立即执行函数  指向 window
+        (function(){
+            console.log('立即执行的函数，自动调用！')
+        })();
+    </script>
+</body>
+</html>

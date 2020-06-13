@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高阶函数</title>
+</head>
+<body>
+    <script>
+        // function fun(callback){
+        //     callback && callback()
+        // }
+        // fun(function(){console.log('参数是函数的高阶函数')})
+
+        // function fun1(){
+        //     return function(){
+        //         console.log('返回一个函数的高阶函数')
+        //     }
+        // }
+        // var r = fun1()
+        // console.log(r())
+
+        /// 函数可以作为参数传递
+        function fun(x,y,f){
+            console.log(f(x,y))
+        }
+        fun(2,3,Math.pow)
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>递归</title>
+</head>
+<body>
+    <script>
+        // 利用递归函数求 1～n 的阶乘 1 * 2 * 3 * ...
+        function fn(n){
+            if(n == 1){
+                return 1
+            }
+            return n * fn(n-1)
+        }
+        console.log(fn(4))
+
+        // 利用递归函数求 斐波那契数列 1，1，2，3，5，8，13，...
+        // 用户输入 n，就可以求出 这个数字的对应的值
+        // 想要知道这个数字对应的值，需要知道 n-1 和 n-2 的值
+        function fb(n){
+            if(n == 1 || n == 2){
+                return 1
+            }
+            return fb(n-1) + fb(n-2)
+        }
+        console.log(fb(8));
+        
+        //  利用递归函数求 根据 id 返回对应的数据对象
+        // 输入 id 号，返回其数据对象
+        var data = [{
+            value: 'beijing',
+            label: '北京',
+            children: [
+                {
+                    value: 'gugong',
+                    label: '故宫'
+                },
+                {
+                    value: 'wangfujing',
+                    label: '王府井'
+                }
+            ]
+        }, 
+        {
+            value: 'jiangsu',
+            label: '江苏',
+            children: [
+                {
+                    value: 'nanjing',
+                    label: '南京',
+                    children: [
+                        {
+                            value: 'fuzimiao',
+                            label: '夫子庙',
+                            children: [
+                                {
+                                    value: 'ceshi',
+                                    label: '测试',
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }]
+        //  1、利用 forEach 去遍历里面的每一个对象
+        function getItem(data,value){
+            var obj = {}
+            data.forEach(res => {
+                if(res.value == value){
+                    obj = res
+                    return res;
+                    // 2、我们想要获取 children 数据，可以利用 递归函数
+                    // 如果有 chilfren 数据，且长度 大于 0
+                }else if(res.children && res.children.length > 0){
+                    obj = getItem(res.children,value)
+                }
+            })
+            return obj
+        }
+        console.log(getItem(data,'ceshi'))
+    </script>
+</body>
+</html>

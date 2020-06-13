@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>改变函数内 this 指向 bind</title>
+</head>
+<body>
+    <button>点击</button>
+    <script>
+        // 改变函数内 this 指向，js 提供了 三种方法，call()，apply()，bind()
+        // 3. bind()
+        var obj = {
+            name: 'bind()方法'
+        };
+        function fn(a,b){
+            console.log(this)
+        }
+        var f = fn.bind(obj)
+        f()
+        // 不会调用原函数，可以改变 原函数的 this 指向，
+        // 返回的是 原函数 改变this指向之后的产生的新函数
+        // 如果有的函数不需要立即调用，但是又需要改变函数内部的this 指向,就可以使用 bind()
+        var btn = document.querySelector('button')
+        btn.onclick = function(){
+            this.disabled = true;
+            setTimeout(function(){
+                this.disabled = false;
+            }.bind(this),3000)
+        }
+    </script>
+</body>
+</html>

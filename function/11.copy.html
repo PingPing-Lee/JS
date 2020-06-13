@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深拷贝、浅拷贝</title>
+</head>
+<body>
+    <script>
+        // 浅拷贝只拷贝一层，更深层次对象级别的只拷贝引用
+       
+        var obj = { name: 'muzi', age: 18, children: { role: 'son'} }
+        var o = {}
+        for(var key in obj){
+            // key 是属性名， obj[key] 是属性˙值
+            o[key] = obj[key]
+        }
+        console.log(o)
+        o.children.role = 'father'
+        console.log(obj);
+
+        //Object.assign(targe,...sources)  es6 新增方法可以实现浅拷贝
+
+        var assignObj = {}
+        Object.assign(assignObj,obj)
+        console.log(assignObj)
+        o.children.role = 'teacher'
+
+
+
+
+         // 深拷贝拷贝多层，每一级别的数据都会拷贝\
+        var deepObj = {}
+        function deepCopy(newobj,oldobj){
+            for (var key in oldobj){
+                var item = oldobj[key]
+                // 判断 属性值的数据类型
+                if(item instanceof Array){  // 如果是 数组类型
+                    newobj[key] = []
+                    deepCopy(newobj[key],item)
+                }else if(item instanceof Object){ // 如果是 对象
+                    newobj[key] = {}
+                    deepCopy(newobj[key],item)
+                }else{ // 是简单数据类型
+                    newobj[key] = item
+                }
+            }
+            
+             
+        }
+        deepCopy(deepObj,obj)
+        deepObj.children.role = 'deep copy'
+        console.log(deepObj);
+        
+
+
+        
+    </script>
+</body>
+</html>

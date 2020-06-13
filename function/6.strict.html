@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>严格模式</title>
+</head>
+<body>
+    <!-- // 为脚本开启严格模式 -->
+    <script>
+        'use strict'
+        // 下面的 js 都按照严格模式执行代码
+    </script>
+    <script>
+        // 有些 script 是严格模式，有的是正常模式，这样就不利于文件的合并，
+        // 所以可以讲整个脚本文件放在一个立即执行的函数中，这样独立创建了一个作用域，而不影响其他的 script 脚本文件
+        (function(){
+            'use strict'
+        })();
+    </script>
+    <!-- 严格模式的要求比较多，比较规范，所以可以给某个函数开启严格模式 -->
+    <script>
+        // 给 fn 函数开启严格模式
+        function fn(){
+            'use strict';
+            //下面的代码按照严格模式执行
+        }
+    </script>
+    <script>
+        'use strict';
+        // 严格模式的变化
+        // 变量规定
+        // 1、变量名必须先定义再使用，否则会报错
+        // num = 88;
+        // console.log(num) //Uncaught ReferenceError: num is not defined
+        var  num = 99;
+        console.log(num);
+        // 2、不能随意删除已经声明好的变量
+        // delete num; //Uncaught SyntaxError: Delete of an unqualified identifier in strict mode.
+
+        // this 指向  
+        // 3、严格模式下，全局作用域函数中的 this 指向是 undefined
+        // function fn(){
+        //     console.log(this)  // undefined
+        // }
+        // fn()
+
+        // 4、严格模式下，构造函数不加new调用，this会报错
+        function Stu(){
+            this.say = '学习严格模式';
+        }
+        // Stu(); // Uncaught TypeError: Cannot set property 'say' of undefined
+        var stu1 = new Stu()
+        console.log(stu1.say)
+
+        // 5、定时器里面的 this 还是指向 window
+        setTimeout(function(){
+            console.log(this)
+        },1000)
+
+        // 6、事件、对象还是指向调用者
+
+
+        // 函数变化
+        // 1、函数不能有重名的参数
+        function fun(a,a){ 
+            console.log(a+a)  //Uncaught SyntaxError: Duplicate parameter name not allowed in this context
+        }
+        fun(1,5)
+        // 2、严格模式禁止了不在脚本或者函数层面上的函数声明
+        if (true) {
+            function f() { } // !!! 语法错误
+            f();
+        }
+
+        for (var i = 0; i < 5; i++) {
+            function f2() { } // !!! 语法错误
+            f2();
+        }
+
+        function baz() { // 合法
+            function eit() { } // 同样合法
+        }
+    </script>
+</body>
+</html>
