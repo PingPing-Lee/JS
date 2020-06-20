@@ -15,42 +15,45 @@
             // key 是属性名， obj[key] 是属性˙值
             o[key] = obj[key]
         }
+        o.name  = '测试'
         console.log(o)
         o.children.role = 'father'
+        // console.log(o)
+
         console.log(obj);
 
         //Object.assign(targe,...sources)  es6 新增方法可以实现浅拷贝
 
-        var assignObj = {}
-        Object.assign(assignObj,obj)
-        console.log(assignObj)
-        o.children.role = 'teacher'
+        // var assignObj = {}
+        // Object.assign(assignObj,obj)
+        // console.log(assignObj)
+        // o.children.role = 'teacher'
 
 
 
 
-         // 深拷贝拷贝多层，每一级别的数据都会拷贝\
-        var deepObj = {}
-        function deepCopy(newobj,oldobj){
-            for (var key in oldobj){
-                var item = oldobj[key]
-                // 判断 属性值的数据类型
-                if(item instanceof Array){  // 如果是 数组类型
-                    newobj[key] = []
-                    deepCopy(newobj[key],item)
-                }else if(item instanceof Object){ // 如果是 对象
-                    newobj[key] = {}
-                    deepCopy(newobj[key],item)
-                }else{ // 是简单数据类型
-                    newobj[key] = item
-                }
-            }
+        //  // 深拷贝拷贝多层，每一级别的数据都会拷贝\
+        // var deepObj = {}
+        // function deepCopy(newobj,oldobj){
+        //     for (var key in oldobj){
+        //         var item = oldobj[key]
+        //         // 判断 属性值的数据类型
+        //         if(item instanceof Array){  // 如果是 数组类型
+        //             newobj[key] = []
+        //             deepCopy(newobj[key],item)
+        //         }else if(item instanceof Object){ // 如果是 对象
+        //             newobj[key] = {}
+        //             deepCopy(newobj[key],item)
+        //         }else{ // 是简单数据类型
+        //             newobj[key] = item
+        //         }
+        //     }
             
              
-        }
-        deepCopy(deepObj,obj)
-        deepObj.children.role = 'deep copy'
-        console.log(deepObj);
+        // }
+        // deepCopy(deepObj,obj)
+        // deepObj.children.role = 'deep copy'
+        // console.log(deepObj);
         
 
 
