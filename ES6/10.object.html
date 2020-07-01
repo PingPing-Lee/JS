@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象的扩展</title>
+</head>
+<body> 
+    <script>
+        // 属性的简洁表示法
+        // ES6 允许直接写入变量和函数作为对象的属性和方法。
+        const foo = 'object prototype'; 
+        const baz = {foo};
+        console.log(baz) // { foo: "object prototype" }
+        // 等同于
+        const baz = { foo: foo };
+        // ES6 允许在对象中只写属性名，不写属性值。这时，属性值等于属性名所代表的变量
+        // 除了属性简写，方法也可以简写。
+        const obj = {
+            methods(){
+                return 'object function'
+            },
+        }
+        // 等同于
+        const obj = {
+            methods: ()=> {
+                return 'object function'
+            },
+        }
+
+        // 属性名表达式
+        // 在传统的 JavaScript 语言中，如果使用字面量定义对象({}), 只能使用标识符定义属性名，不能使用表达式定义属性名。
+        //  ES6 做了改变，允许字面量定义对象时，可以用表达式作为属性名 
+        const temp = 'object expression'
+        const expre = {
+            [temp] : 'temp'
+        }
+        console.log(expre[temp])
+        // 表达式还可以用于定义方法名
+        let funExpre = { 
+        [ 'say' + 'Some' ](){ 
+            console.log('表达式还可以用于定义方法名')
+        }
+        }; 
+        funExpre.saySome() // hi
+        // 注意 属性名表达式与简洁表示法不能同时使用
+        const temp = 'object expression'
+        // const expre = { [temp] }
+        // 注意，属性名表达式如果是 个对象，默认情况下会自动将对象转为字符串［ object Object ］
+        const keyA = {a: 1}; 
+        const keyB = {b: 2}; 
+        const myObject = { 
+            [keyA]: 'valueA', 
+            [keyB]: 'valueB'
+        }
+        console.log(myObject) // {[object Object]: "valueB"}
+        // ［ keyA ）和［ keyB ］得到的都是［ object Object ），所以［ keyB ］会把 [keyA ］覆盖掉，而 myObject 最后只有一个［ object Object ）属性。
+
+        // 方法的 name 属性
+        // 函数的 name 属性返回函数名。对象方法也是函数，因此也有 name 属性。
+        const person = { 
+            sayName() { 
+                console . log (' hello !')
+            }
+        };
+        console.log(person.sayName.name) // ” sayName ”
+        // 有两种特殊情况： bind 方法创造的函数， name 属性返回 "bound " 加上原函数的名字; Function 构造函数创造的函数， name 属性返回 "anonymous"
+        (new Function()).name // "anonymous"
+        var doSomething = function() {}
+        doSomething.bind().name //  "bound doSomething"
+
+        // 如果对象的方法是一个 Symbol 值，那么 name 属性返回的是这个 Symbol 值的描述。
+        const keys = Symbol('description')
+        let obj = { 
+            [keys] () { } , 
+        }
+        obj[keys].name //  [description]
+
+        // Object .is()
+        // 在传统的 JavaScript 语言中，有两个运算符 可以比较两个值是否相等：相等运算符(==) 和 严格相等运算符(===)。但是 前者会自动转换数据类型，后者的 NaN 不等于自身，以及＋0 等于－0. 
+        // ES6 提出了“ Same-value equality ”（同值相等）算法用来解决这个问题。 
+        // Object.is 就是部署这个算法的新方法。它用来比较两个值是否严格相等，与严格相等运算符（二＝）的行为基本 致。
+        Object.is(+O , -0) // false
+        Object.is(NaN,NaN) // true
+
+        // Object.assign()
+        // Object assign 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象，然后将目标对象返回。
+        // 如果目标对象中的属性具有相同的键，则属性将被源对象中的属性覆盖。后面的源对象的属性将类似地覆盖前面的源对象的属性。
+        Object.assign(target, ...sources)
+        // target：目标对象。
+        // sources：源对象。 
+        // 注意： Object.assign() 方法实行 的是浅复制，而不是深复制。也就是说，如果源对象某个属性的值是对象，那么目标对象复制得到的是这个对象的引用。
+
+        //属性的遍历 
+        // ES6 一共有5种方法可以遍历对象的属性
+        // 1. for...in
+        // for . . . in 循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）。
+        const mapObj = {
+            a: 1,
+            b: 2,
+            fn(){ },
+            [Symbol()]: 3,
+        }
+        for(let key in mapObj){
+            console.log(key,mapObj[key]) 
+        }
+        // a 1  // b 2 //fn ƒ fn(){ }
+        // 2. Object.keys(obj)，Object.values()、Object.entries()
+        // Object keys 返回 一个数组，包括对象自身的（不含继承 ）所有可枚举属性（不含 Symbol属性）
+        // Object values 方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历(enumerable )属性的键值。
+        // Object entries 方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历(enumerable )属性的键值对数组。
+        Object.keys(mapObj)//["a", "b", "fn"]
+        Object.values(mapObj)// [1, 2, ƒ]
+        Object.entries(mapObj) // [["a", 1],["b", 2],["fn", ƒ]]
+
+        // 3. Object.getOwnPropertyNames(obj)
+        // Object.getOwnPropertyNames 返回 一个数组，包含对象自身的所有属性（不含 Symbol 属性，但是包括不可枚举属性）
+        Object.getOwnPropertyNames(mapObj)//["a", "b", "fn"]
+        // 4. Object.getOwnPropertySymbols(obj)
+        // Object getOwnPropertySymbols 返回 一个数组，包含对象自身的所有 Symbol 属性
+        Object.getOwnPropertySymbols(mapObj) //[Symbol()]
+        // 5.  Reflect.ownKeys(obj)
+        // Reflect.ownKeys返回一个数组，包含对象自身的所有属性，不管是属性名是Symbol或字符串，也不管是否可枚举。
+        Object.Reflect.ownKeys(mapObj)//["a", "b", "fn", Symbol()]
+        // 以上 种方法遍历对象的属性时都遵守同样 属性遍历次序规
+        // . 首先遍历所有属性名为数值的属性 按照数字排序
+        // • 其次遍历所有属性名为字符串的属性，按照生成时间排序。
+        // • 最后遍历所有属性名为 Symbol 值的属性， 按照生成时间排序。
+        Reflect.ownKeys({ [Symbol()]:0, b:0, 10:0, 1:0, a:0 })
+        // ['2', '10', 'b', 'a', Symbol()]
+        // 上面代码中，Reflect.ownKeys方法返回一个数组，包含了参数对象的所有属性。这个数组的属性次序是这样的，首先是数值属性2和10，其次是字符串属性b和a，最后是Symbol属性。
+
+        // 对象的扩展运算待
+        // 解构赋值
+        // 对象的解构赋值用于从一个对象取值，相当于将所有可遍历的、但尚未被读取的属性分配到指定的对象上面。所有的键和它们的值都会复制到新对象上面。
+        let { x , y, ... z } = { x : 1, y : 2, a: 3 , b : 4 };
+        console.log(x,y,z) // 1 2 {a: 3, b: 4}
+        // 变量z 是解构赋值所在的对象。它获取等号右边的除已读取的键(x,y)意外的所有键，将它们连同值 一起复制过来。
+        // 由于解构赋值要求等号右边是 个对象，所以如果等号右边是 undefined null 就会报错 因为它们无法转为对象。
+        let { x , y, ...z} =null;  // 报错
+        let { x , y , ...z } = undefined; // 报错
+        // 解构赋值必须是最后 个参数，否则会报错
+        let { ... x , y , z } =obj ;  // 报错
+        let { x , ...y, ...z } = obj ; // 报错
+        // 解构赋值的复制是浅复制， f!p 如果一个键的值是复合类型的位（数组、对象、函数），那么解构赋值复制的是这个值的引用，而不是这个值的副本
+        // 扩展运算符
+        // 扩展运算符（．． 〉用于取出参数对象的所有可遍历属性，并将其复制到当前对象之中。
+        let z = { a: 1 , b: 3 } ; 
+        console.log({ ...z })// { a : 3 , b: 4 }
+        
+    </script>
+</body>
+</html>
